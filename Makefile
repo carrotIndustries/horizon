@@ -863,7 +863,6 @@ OBJ_PR_REVIEW    = $(addprefix $(OBJDIR)/,$(SRC_PR_REVIEW:.cpp=.o))
 
 INC_ROUTER = -I3rd_party/router/include/ -I3rd_party/router -isystem 3rd_party
 INC_OCE ?= -isystem /opt/opencascade/inc/ -isystem /mingw64/include/oce/ -isystem /usr/include/oce -isystem /usr/include/opencascade -isystem ${CASROOT}/include/opencascade -isystem ${CASROOT}/include/oce -isystem /usr/local/include/OpenCASCADE
-INC_PYTHON := $(shell $(PKG_CONFIG) --cflags python3 py3cairo)
 OCE_LIBDIRS = -L/opt/opencascade/lib/ -L${CASROOT}/lib
 LDFLAGS_OCE = $(OCE_LIBDIRS) -lTKSTEP  -lTKernel  -lTKXCAF -lTKXSBase -lTKBRep -lTKCDF -lTKXDESTEP -lTKLCAF -lTKMath -lTKMesh -lTKTopAlgo -lTKPrim -lTKBO
 ifeq ($(OS),Windows_NT)
@@ -958,6 +957,7 @@ $(PICOBJDIR)/%.o: %.cpp
 	$(ECHO) " $@"
 	$(QUIET)$(CXX) -c $(INC) $(CXXFLAGS) -fPIC -DOFFSCREEN=1 $< -o $@
 
+$(OBJ_PYTHON): INC_PYTHON := $(shell $(PKG_CONFIG) --cflags python3 py3cairo)
 $(OBJ_PYTHON): INC += $(INC_PYTHON)
 
 $(OBJ_RES): $(OBJDIR)/%.res: %.rc
