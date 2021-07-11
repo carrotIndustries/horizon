@@ -31,6 +31,15 @@ ToolWindow::ToolWindow(Gtk::Window *parent, ImpInterface *intf) : interface(intf
 
     ok_button->signal_clicked().connect([this] { emit_event(ToolDataWindow::Event::OK); });
 
+    signal_key_press_event().connect([this](GdkEventKey *ev) {
+        if (ev->keyval == GDK_KEY_Escape) {
+            hide();
+            return true;
+        }
+        return false;
+    });
+
+
     signal_hide().connect([this] { emit_event(ToolDataWindow::Event::CLOSE); });
 }
 
