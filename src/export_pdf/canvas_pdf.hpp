@@ -39,6 +39,7 @@ private:
                        bool center = false, bool mirror = false) override;
     void img_hole(const Hole &hole) override;
     bool pdf_layer_visible(int l) const;
+    void draw_polygon(const Polygon &ipoly, bool tr);
     Color get_pdf_layer_color(int layer) const;
 };
 } // namespace horizon
